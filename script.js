@@ -8,8 +8,7 @@ function getLeadPhoneNumber() {
 // 1. Lista com os seus links do WhatsApp usando o número direto
 const leadPhone = getLeadPhoneNumber();
 const whatsappLinks = [
-    `https://api.whatsapp.com/send/?phone=${leadPhone}&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal`, // Número principal
-    `https://api.whatsapp.com/send/?phone=554391386878&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal`  // Número secundário (backup)
+    `https://api.whatsapp.com/send/?phone=${leadPhone}&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal` // Número principal
 ];
 
 // 2. Pega o contador de acessos do localStorage.
@@ -29,7 +28,6 @@ localStorage.setItem('whatsappAccessCount', accessCount);
 // --- LÓGICA DA CONTAGEM REGRESSIVA ---
 let segundosRestantes = 5;
 const countdownElement = document.getElementById('countdown');
-
 const countdownInterval = setInterval(() => {
     segundosRestantes--;
     if (countdownElement) {
