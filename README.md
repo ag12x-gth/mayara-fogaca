@@ -164,3 +164,5 @@ Para dúvidas ou problemas:
 
 **Última atualização**: Setembro 2025  
 **Versão**: 2.0 - Com suporte a variáveis de ambiente
+
+<!-- Deploy trigger: Sept 3, 2025, 5:40 PM - Trigger Netlify redeploy -->
