@@ -1,9 +1,29 @@
-// --- LÓGICA DO REDIRECIONADOR AUTOMÁTICO COM DELAY ---
+// --- CONFIGURAÇÃO DE VARIÁVEIS DE AMBIENTE ---
+// Para usar variáveis de ambiente no Netlify, você deve configurar no painel admin.
+// Esta função busca o número de telefone do lead da variável de ambiente LEAD_PHONE_NUMBER
+// Caso a variável não esteja definida, usa um número padrão para desenvolvimento.
+function getLeadPhoneNumber() {
+    // No Netlify, as variáveis de ambiente são injetadas durante o build via process.env
+    // Para JavaScript do frontend, precisamos usar uma abordagem diferente
+    // O número deve ser configurado nas Environment Variables do Netlify
+    
+    // Número padrão para desenvolvimento (será substituído pela variável de ambiente)
+    const DEFAULT_LEAD_PHONE = '553288654795';
+    
+    // Em produção no Netlify, use a variável de ambiente LEAD_PHONE_NUMBER
+    // que pode ser configurada em Site Settings > Environment Variables
+    const LEAD_PHONE = '%%LEAD_PHONE_NUMBER%%' || DEFAULT_LEAD_PHONE;
+    
+    // Remove caracteres não numéricos
+    return LEAD_PHONE.replace(/[^\d]/g, '');
+}
 
-// 1. Lista com os seus links do WhatsApp.
+// --- LÓGICA DO REDIRECIONADOR AUTOMÁTICO COM DELAY ---
+// 1. Lista com os seus links do WhatsApp usando a variável de ambiente
+const leadPhone = getLeadPhoneNumber();
 const whatsappLinks = [
-    'https://api.whatsapp.com/send/?phone=553288654795&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal', // Primeiro número
-    'https://api.whatsapp.com/send/?phone=554391386878&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal'  // Segundo número
+    `https://api.whatsapp.com/send/?phone=${leadPhone}&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal`, // Número principal
+    `https://api.whatsapp.com/send/?phone=554391386878&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal`  // Número secundário (backup)
 ];
 
 // 2. Pega o contador de acessos do localStorage.
@@ -14,6 +34,7 @@ const linkParaRedirecionar = whatsappLinks[accessCount % whatsappLinks.length];
 
 // 4. Mostra no console o link que será aberto (bom para depuração).
 console.log(`Acesso #${accessCount + 1}: Redirecionando para ${linkParaRedirecionar} em 5 segundos.`);
+console.log(`Lead phone number: ${leadPhone}`);
 
 // 5. Incrementa e salva o contador para o próximo acesso.
 accessCount++;
