@@ -3,37 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecionando...</title>
-    <!-- Link para o arquivo de estilo externo -->
+    <meta name="description" content="Redirecionamento automático para WhatsApp da Imersão com Mayara Fogaça e Pablo Marçal">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Redirecionando para WhatsApp...</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="wtz-thumb-mayara.png" as="image">
+    
+    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Google Analytics 4 (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V3Y54BXFSH"></script>
+    <!-- Content Security Policy (recommended for production) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; img-src 'self' data:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://www.google-analytics.com https://api.whatsapp.com;">
+    
+    <!-- Google Analytics 4 (GA4) with error handling -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V3Y54BXFSH" onerror="console.warn('Google Analytics failed to load')"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-V3Y54BXFSH');
+      try {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-V3Y54BXFSH', {
+          // Enhanced privacy settings
+          anonymize_ip: true,
+          cookie_flags: 'SameSite=Strict;Secure'
+        });
+      } catch (error) {
+        console.warn('Google Analytics initialization failed:', error);
+      }
     </script>
-    <!-- Fim do Google Analytics 4 -->
+    <!-- End Google Analytics -->
 </head>
 <body>
-    <div class="container">
-        
-        <!-- Imagem -->
-        <img id="header-image" src="wtz-thumb-mayara.png" alt="Imersão com Mayara Fogaça e Pablo Marçal" width="224" height="218">
-        
-        <!-- Mensagem de redirecionamento com nomes em negrito -->
-        <p>Whatsapp de <b>Mayara Fogaça</b> e <b>Pablo Marçal</b> em <span id="countdown">5</span> segundos...</p>
-        
-        <!-- Estrutura da fila -->
-        <div class="fila">
-            <span id="fila-counter">298</span>
-            <div class="texto-fila">pessoas na sua frente.</div>
-        </div>
-    </div>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
     
-    <!-- Link para o arquivo de script externo -->
+    <main id="main-content" class="container" role="main">
+        <!-- Loading state -->
+        <div id="loading-state" class="loading-state" aria-hidden="true">
+            <div class="spinner" aria-label="Carregando..."></div>
+        </div>
+        
+        <!-- Main content -->
+        <div id="main-interface" class="main-interface">
+            <!-- Header image with proper accessibility -->
+            <img id="header-image" 
+                 src="wtz-thumb-mayara.png" 
+                 alt="Foto de Mayara Fogaça e Pablo Marçal para a Imersão" 
+                 width="224" 
+                 height="218"
+                 loading="eager"
+                 onerror="this.style.display='none'; console.warn('Image failed to load')">
+            
+            <!-- Redirect message with accessibility -->
+            <div class="redirect-message" role="status" aria-live="polite">
+                <p>
+                    Redirecionando para o WhatsApp de 
+                    <strong>Mayara Fogaça</strong> e <strong>Pablo Marçal</strong> 
+                    em <span id="countdown" aria-label="segundos restantes">5</span> segundos...
+                </p>
+            </div>
+            
+            <!-- Queue counter with accessibility -->
+            <div class="fila" role="status" aria-live="polite" aria-label="Contador de pessoas na fila">
+                <span id="fila-counter" aria-label="número de pessoas">298</span>
+                <div class="texto-fila">pessoas na sua frente.</div>
+            </div>
+            
+            <!-- Manual fallback button (hidden by default) -->
+            <div id="manual-fallback" class="manual-fallback" style="display: none;" role="complementary">
+                <p class="fallback-message">Problemas com o redirecionamento automático?</p>
+                <button id="manual-redirect-btn" class="manual-redirect-btn" type="button">
+                    📱 Abrir WhatsApp Agora
+                </button>
+            </div>
+        </div>
+        
+        <!-- Error state -->
+        <div id="error-state" class="error-state" style="display: none;" role="alert" aria-live="assertive">
+            <h2>⚠️ Ocorreu um problema</h2>
+            <p>Não foi possível completar o redirecionamento automaticamente.</p>
+            <button id="retry-btn" class="retry-btn" type="button">
+                🔄 Tentar Novamente
+            </button>
+        </div>
+    </main>
+    
+    <!-- Footer with additional info -->
+    <footer class="footer" role="contentinfo">
+        <small>
+            Página segura • 
+            <a href="#" onclick="showPrivacyInfo(); return false;" aria-label="Informações sobre privacidade">
+                Privacidade
+            </a>
+        </small>
+    </footer>
+    
+    <!-- NoScript fallback -->
+    <noscript>
+        <div class="noscript-message">
+            <h2>JavaScript Necessário</h2>
+            <p>Esta página requer JavaScript para funcionar corretamente.</p>
+            <p>Por favor, ative o JavaScript em seu navegador e recarregue a página.</p>
+            <a href="https://api.whatsapp.com/send/?phone=5511914988880&text=Resgatar%20convite%20da%20Imersão%20-%20Mayara%20Fogaça%20e%20Pablo%20Marçal" 
+               class="noscript-link" target="_blank" rel="noopener">
+                Abrir WhatsApp Diretamente
+            </a>
+        </div>
+    </noscript>
+    
+    <!-- Main script -->
     <script src="script.js"></script>
+    
+    <!-- Additional error handling script -->
+    <script>
+        // Global error handler
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+            
+            // Show manual fallback after 3 errors
+            if (!window.errorCount) window.errorCount = 0;
+            window.errorCount++;
+            
+            if (window.errorCount >= 3) {
+                const fallback = document.getElementById('manual-fallback');
+                if (fallback) {
+                    fallback.style.display = 'block';
+                }
+            }
+        });
+        
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+        });
+        
+        // Privacy info function
+        function showPrivacyInfo() {
+            alert('Esta página coleta dados mínimos apenas para analytics e melhorar a experiência do usuário. Nenhuma informação pessoal é armazenada.');
+        }
+    </script>
 </body>
 </html>
